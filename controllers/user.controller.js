@@ -24,6 +24,34 @@ const signer = new RawSigner(keypair, provider);
 const PACKAGE_ID = '0x2f8a1bdc3977cc134bf7bac4699712009878c7bd8ef72d144325a5f032d1c8ef'
 const TREASURY_ID = '0x5fa75f3cc2bae39c34310a13809c507e027933f4acf5b9e3c5129402d7af2bde'
 
+exports.publish_profile = async function(req, res, next){
+    const tx = new TransactionBlock();
+        await tx.moveCall({
+            target: `${PACKAGE_ID}::digitrust::create_user_profile`,
+            arguments: [
+                tx.object(req.body.name),
+                tx.pure(req.body.address),
+                tx.pure(req.body.wallet),
+                tx.pure(req.body.raise_amount),
+                tx.pure(req.body.stop_loss),
+                tx.pure(req.body.asset_type), 
+            ],
+        });
+
+        const transaction = await signer.signAndExecuteTransactionBlock({
+            transactionBlock: tx,
+            options: {
+                showInput: true,
+                showEffects: true,
+                showEvents: true,
+                showObjectChanges: true,
+            }
+        });
+
+        console.log("DGT resp: ", transaction);
+        return transaction.transaction.data.transaction.inputs
+}
+
 async function subscribe_signal(data) {
     try {
         const tx = new TransactionBlock();
