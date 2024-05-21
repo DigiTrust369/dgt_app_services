@@ -24,34 +24,6 @@ const signer = new RawSigner(keypair, provider);
 const PACKAGE_ID = '0x2f8a1bdc3977cc134bf7bac4699712009878c7bd8ef72d144325a5f032d1c8ef'
 const TREASURY_ID = '0x5fa75f3cc2bae39c34310a13809c507e027933f4acf5b9e3c5129402d7af2bde'
 
-exports.publish_profile = async function(req, res, next){
-    const tx = new TransactionBlock();
-        await tx.moveCall({
-            target: `${PACKAGE_ID}::digitrust::create_user_profile`,
-            arguments: [
-                tx.object(req.body.name),
-                tx.pure(req.body.address),
-                tx.pure(req.body.wallet),
-                tx.pure(req.body.raise_amount),
-                tx.pure(req.body.stop_loss),
-                tx.pure(req.body.asset_type), 
-            ],
-        });
-
-        const transaction = await signer.signAndExecuteTransactionBlock({
-            transactionBlock: tx,
-            options: {
-                showInput: true,
-                showEffects: true,
-                showEvents: true,
-                showObjectChanges: true,
-            }
-        });
-
-        console.log("DGT resp: ", transaction);
-        return transaction.transaction.data.transaction.inputs
-}
-
 async function subscribe_signal(data) {
     try {
         const tx = new TransactionBlock();
@@ -200,4 +172,64 @@ exports.user_history = async(req, res, next)=>{
     ]
 
     res.json(user_history)
+}
+
+exports.vault_allocation = async(req, res, next)=>{
+    const vault_allocation = {
+        "price": "1348$",
+        "holding_value":"368000$",
+        "amount_raised":"45%",
+        "assets":[
+            {
+                "asset": "Stacks",
+                "symbol": "STX",
+                "contract": "0x138234234",
+                "chain": "btc layer-2",
+                "invest_amount":2411, 
+                "weight":"18%", 
+                "holding":"1348$",
+                "price_change":{
+                    "24h":"5.5",                
+                },
+                "dgt_score": 8,
+                "status":true
+            },
+            {
+                "asset": "Merlin stack",
+                "symbol": "MRL",
+                "contract": "0x138234234",
+                "chain": "btc layer-2",
+                "invest_amount":2411, 
+                "weight":"8%", 
+                "holding":"1348$",
+                "price_change":{
+                    "24h":"6.5",                
+                },
+                "dgt_score": 8,
+                "status":true
+            }
+        ]
+    }
+
+    res.json(vault_allocation)
+}
+
+exports.user_tracker = async(req, res, next)=>{
+    let user_adr = req.query.user_adr
+    console.log("User address: ", user_adr)
+    const user_tracker = [
+        {
+            "date": "15/5/2024",
+            "name": "dgt_rwa_bucket",
+            "symbol": "dgt_v1",
+            "quantity": 2411, 
+            "purchase_price":"18%", 
+            "current_price":"1%",
+            "total_loss":"5%",
+            "tx_hash":"0x13c414324",
+            "exp_date": "15/8/2024"
+        }
+    ]
+
+    res.json(user_tracker)
 }
