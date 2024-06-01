@@ -1,5 +1,9 @@
 const axios = require("axios")
-const sui_monitor = require('../chains/sui_monitor')
+const sui_monitor = require('../chains/monitor/sui_monitor')
+const evm_adr = require('../chains/address/evm.address')
+const apt_adr = require('../chains/address/apt.address')
+const { Wallet } = require('ethers')
+const wallet = Wallet.createRandom()
 
 // const {
 // 	DEFAULT_ED25519_DERIVATION_PATH,
@@ -84,15 +88,19 @@ exports.vault_balance = async(req, res, next) =>{
 
 exports.profile = async (req, res, next) => {
     try {
-        const user_id = req.query.user_id
+        const adr = req.query.adr
+
+        console.log("User address: ", adr)
+
         const user_resp = {
             "name":"DigiTrust",
             "wallet":"0x13123",
-            "des":"it is the best capital for funding allocation",
+            "des":"It is the best capital for funding allocation",
             "holding_amount":2411, 
+            "twitter": "https://x.com/pqd_2411",
             "managed_amount":2411,
             "dgt_amount":15000, 
-            "logo_url":"http://localhost/pqd_user",
+            "logo_url":"https://drive.google.com/file/d/1PHKQkJsCCvxi1PWc1kDoCsCZgsMHMK0O/view?usp=sharing",
             "vaults":[
                 {
                     "name":"dgt_internal",
@@ -195,7 +203,8 @@ exports.vault_allocation = async(req, res, next)=>{
                     "24h":"5.5",                
                 },
                 "dgt_score": 8,
-                "status":true
+                "status":true,
+                "url":"stx"
             },
             {
                 "asset": "Merlin stack",
@@ -209,7 +218,8 @@ exports.vault_allocation = async(req, res, next)=>{
                     "24h":"6.5",                
                 },
                 "dgt_score": 8,
-                "status":true
+                "status":true,
+                "url":"uma"
             }
         ]
     }
@@ -217,9 +227,9 @@ exports.vault_allocation = async(req, res, next)=>{
     res.json(vault_allocation)
 }
 
-exports.user_tracker = async(req, res, next)=>{
-    let user_adr = req.query.user_adr
-    console.log("User address: ", user_adr)
+exports.user_history = async(req, res, next)=>{
+    let adr = req.query.adr
+    console.log("User address: ", adr)
     const user_tracker = [
         {
             "date": "15/5/2024",
@@ -241,4 +251,21 @@ exports.sub_deposit_event = async(req, res, next) =>{
     //making connection + 
     const event_resp = await sui_monitor.emit_investor_deposit()
     res.json(event_resp)
+}
+
+exports.get_evm_address = async(req, res, next) =>{
+    let account_id = req.query.account_id
+    let address_id = req.query.address_id
+
+    let adr_resp = await evm_adr.generate(account_id, address_id)
+
+    res.json(adr_resp)
+}
+
+exports.get_apt_address = async(req, res, next) =>{
+    let account_id = req.query.account_id
+
+    let adr_resp = await apt_adr.aptos_address(wallet.mnemonic.phrase, account_id)
+
+    res.json(adr_resp)
 }

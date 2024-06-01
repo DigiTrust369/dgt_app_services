@@ -2,14 +2,14 @@ exports.list_vault = async(req, res, next) =>{
     const vaults = [
         {
             "vault_id":"finX",
-            "symbol":"FX",
+            "symbol":"aHYPE",
             "asset":[
                 "https://dd.dexscreener.com/ds-data/tokens/sui/0x76cb819b01abed502bee8a702b4c2d547532c12f25001c9dea795a5e631c26f1::fud::fud.png"
             ],
-            "vault_name":"FinX",
+            "vault_name":"aHYPE",
             "price":"1500$",
             "return":24,
-            "tvl":2411,
+            "tvl":2411942139,
             "monthly_return":"24.32%",
             "daily_return":"1.8%",
             "manager":"Dgt invest",
@@ -25,14 +25,14 @@ exports.list_vault = async(req, res, next) =>{
             "symbol":"BTCX",
             "price":"67000$",
             "return":24,
-            "tvl":2411,
+            "tvl":24123411,
             "monthly_return":"24.32%",
             "daily_return":"1.8%",
             "manager":"Dgt invest",
             "des":"DigiTrust ecosystem",
             "timestamp":2424,
             "chain":"EVM",
-            "url":"https://dd.dexscreener.com/ds-data/tokens/sui/0x76cb819b01abed502bee8a702b4c2d547532c12f25001c9dea795a5e631c26f1::fud::fud.png"
+            // "url":"https://dd.dexscreener.com/ds-data/tokens/sui/0x76cb819b01abed502bee8a702b4c2d547532c12f25001c9dea795a5e631c26f1::fud::fud.png"
         },
         {
             "url":"https://xkqpczltzicnmbqvihbc.supabase.co/storage/v1/object/public/logos/ton_7768.png",
@@ -41,14 +41,14 @@ exports.list_vault = async(req, res, next) =>{
             "symbol":"POLX",
             "price":"540$",
             "return":24,
-            "tvl":2411,
+            "tvl":2349310411,
             "monthly_return":"24.32%",
             "daily_return":"1.8%",
             "manager":"Dgt invest",
             "des":"DigiTrust ecosystem",
             "timestamp":2424,
             "chain":"EVM",
-            "url":"https://dd.dexscreener.com/ds-data/tokens/sui/0x76cb819b01abed502bee8a702b4c2d547532c12f25001c9dea795a5e631c26f1::fud::fud.png"
+            // "url":"https://dd.dexscreener.com/ds-data/tokens/sui/0x76cb819b01abed502bee8a702b4c2d547532c12f25001c9dea795a5e631c26f1::fud::fud.png"
         },
         {
             "url":"https://xkqpczltzicnmbqvihbc.supabase.co/storage/v1/object/public/logos/pepe_9753.png",
@@ -57,14 +57,14 @@ exports.list_vault = async(req, res, next) =>{
             "symbol":"ARBX",
             "price":"108$",
             "return":24,
-            "tvl":2411,
+            "tvl":23429411,
             "monthly_return":"24.32%",
             "daily_return":"1.8%",
             "manager":"Dgt invest",
             "des":"DigiTrust ecosystem",
             "timestamp":2424,
             "chain":"EVM",
-            "url":"https://dd.dexscreener.com/ds-data/tokens/sui/0x76cb819b01abed502bee8a702b4c2d547532c12f25001c9dea795a5e631c26f1::fud::fud.png"
+            // "url":"https://dd.dexscreener.com/ds-data/tokens/sui/0x76cb819b01abed502bee8a702b4c2d547532c12f25001c9dea795a5e631c26f1::fud::fud.png"
         }
     ]
 
@@ -81,7 +81,7 @@ exports.information = async (req, res, next) => {
                 "vault_name": "dgt_info_1",
                 "manager": "dgt_manager",
                 "logo":"http://localhost:3000/image/logo",
-                "vault_desc": "making profit",
+                "vault_desc": "",
                 "vault_adr": "0x312ms824234",
                 "return":24,
                 "assets":["CETUS", "SUI", "SUILIEN"],
